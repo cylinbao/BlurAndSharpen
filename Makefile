@@ -1,8 +1,9 @@
 CC	:= gcc
+CFLAGS	:= 
 
 bns: bns.c
-	$(CC) -o $@ $<
+	$(CC) -o $@ $(CFLAGS) $<
 
 .PHONY: clean
-clean: bns
-	rm -fr $<
+clean: bns Output/*
+	rm -fr $?
