@@ -145,8 +145,8 @@ void cross2DConv()
 
 	kernLen = kernSize/2;
 
-	for(inIdx = 0; inIdx < numInput; inIdx++){
-		for(filIdx = 0; filIdx < numFilter; filIdx++){
+	for(filIdx = 0; filIdx < numFilter; filIdx++){
+		for(inIdx = 0; inIdx < numInput; inIdx++){
 			for(j = 0; j < imgWidth; j++){
 				for(i = 0; i < imgHeight; i++){
 					rgb[0] = 0; rgb[1] = 0; rgb[2] = 0;
