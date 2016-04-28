@@ -1,5 +1,5 @@
 CC	:= gcc
-CFLAGS	:=
+CFLAGS	:= -g
 
 bns: bns.c bmp.h
 	$(CC) -o $@ $(CFLAGS) $<
