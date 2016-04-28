@@ -48,19 +48,21 @@ BMP bmpFiles[numInput];
 BYTE *data[numInput];
 BYTE *results[numFilter][numInput];
 
+int imgHeight, imgWidth, imgSize;
+
+void setImageInfo()
+{
+	imgHeight = bmpFiles[0].height;
+	imgWidth = bmpFiles[0].width;
+	imgSize = imgHeight * imgWidth * 3;
+}
+
 void loadImages()
 {
 	int i;
 	
 	for(i = 0; i < numInput; i++){
 		bmpLoad(&bmpFiles[i], inputNames[i]);
-	}
-
-	int size = bmpFiles[0].width * bmpFiles[0].height * 3;
-
-	for(i = 0; i < numInput; i++){
-		data[i] = malloc(size * sizeof(BYTE));
-		memcpy(data[i], bmpFiles[i].data, size * sizeof(BYTE));
 	}
 }
 
@@ -79,14 +81,23 @@ void saveImages()
 	}
 }
 
+void setData()
+{
+	int i;
+
+	for(i = 0; i < numInput; i++){
+		data[i] = malloc(imgSize * sizeof(BYTE));
+		memcpy(data[i], bmpFiles[i].data, imgSize * sizeof(BYTE));
+	}
+}
+
 void initialResults()
 {
 	int i, j;
-	int size = bmpFiles[0].width * bmpFiles[0].height * 3;
 
 	for(i = 0; i < numFilter; i++)
 		for(j = 0; j < numInput; j++)
-			results[i][j] = malloc(size * sizeof(BYTE));
+			results[i][j] = malloc(imgSize * sizeof(BYTE));
 }
 
 void freeMem()
@@ -114,46 +125,50 @@ void checkPixelValue(int *arr, int weight)
 	}
 }
 
+void setPixel(BYTE *data, int x, int y, int *rgb)
+{
+	Pixel *pixelPtr;
+
+	pixelPtr = (Pixel *) &data[(x*imgWidth + y)*sizeof(Pixel)];
+	pixelPtr->R = rgb[0]; 
+	pixelPtr->G = rgb[1]; 
+	pixelPtr->B = rgb[2];
+}
+
 void cross2DConv()
 {
 	int i, j, k, l;
-	int height, width, weight, kernLen;
 	int filIdx, inIdx;
-	int acc[3], idx[3];
+	int weight, kernLen;
+	int rgb[3], idx[3];
 	Pixel *pixelPtr;
 
-	height = bmpFiles[0].height;
-	width = bmpFiles[0].width;
 	kernLen = kernSize/2;
 
 	for(filIdx = 0; filIdx < numFilter; filIdx++){
 		for(inIdx = 0; inIdx < numInput; inIdx++){
-			for(i = 0; i < height; i++){
-				for(j = 0; j < width; j++){
-					acc[0] = 0; acc[1] = 0; acc[2] = 0;
+			for(i = 0; i < imgHeight; i++){
+				for(j = 0; j < imgWidth; j++){
+					rgb[0] = 0; rgb[1] = 0; rgb[2] = 0;
 					weight = weights[filIdx];
 					for(k = 0; k < kernSize; k++){
 						for(l = 0; l < kernSize; l++){
 							idx[1] = j - kernLen + l;
 							idx[2] = i - kernLen + k;
-							idx[0] = idx[2]*width + idx[1];
+							idx[0] = idx[2]*imgWidth + idx[1];
 							if((idx[1] >= 0) && (idx[2] >=0) && 
-								 (idx[1] < width) && (idx[2] < height)){
+								 (idx[1] < imgWidth) && (idx[2] < imgHeight)){
 								pixelPtr = (Pixel *) &data[inIdx][idx[0]*sizeof(Pixel)];
-								acc[0] += filters[filIdx][k][l] * (pixelPtr->R - 0);
-								acc[1] += filters[filIdx][k][l] * (pixelPtr->G - 0);
-								acc[2] += filters[filIdx][k][l] * (pixelPtr->B - 0);
+								rgb[0] += filters[filIdx][k][l] * (pixelPtr->R - 0);
+								rgb[1] += filters[filIdx][k][l] * (pixelPtr->G - 0);
+								rgb[2] += filters[filIdx][k][l] * (pixelPtr->B - 0);
 							}
 							else
 								weight -= filters[filIdx][k][l];
 						}
 					}		
-					checkPixelValue(acc, weight);
-
-					pixelPtr = (Pixel *) &results[filIdx][inIdx][(i*width + j)*sizeof(Pixel)];
-					pixelPtr->R = acc[0]; 
-					pixelPtr->G = acc[1]; 
-					pixelPtr->B = acc[2];
+					checkPixelValue(rgb, weight);
+					setPixel(results[filIdx][inIdx], i, j, rgb);
 				}
 			}
 		}
@@ -162,19 +177,19 @@ void cross2DConv()
 
 int main(int argc, char *argv[]) {
 	clock_t clkStart, clkEnd;
-	float exeTime;
 
 	clkStart = clock();
 
 	loadImages();
+	setImageInfo();
+	setData();
 	initialResults();
 	cross2DConv();
 	saveImages();
 	freeMem();
 
 	clkEnd = clock();
-	exeTime = (float) (clkEnd - clkStart) / CLOCKS_PER_SEC;
 
-	printf("Execution time: %f\n", exeTime);
+	printf("Consumed CPU clocks: %d\n", clkEnd - clkStart);
   return 0;
 }

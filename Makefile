@@ -1,7 +1,7 @@
 CC	:= gcc
-CFLAGS	:= 
+CFLAGS	:=
 
-bns: bns.c
+bns: bns.c bmp.h
 	$(CC) -o $@ $(CFLAGS) $<
 
 .PHONY: clean

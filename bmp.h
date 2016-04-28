@@ -91,41 +91,6 @@ int bmpLoad(BMP *bmp, char *fileName) {
    fclose (file);
 }
 
-int bmpPrint(BMP *bmp) {
-   printf("==== Header ====\n");
-   printf("Signature = %04X\n", bmp->signature); // 0x4d42 = BM
-   printf("FileSize = %ld \n", bmp->fileSize);
-   printf("DataOffset = %ld \n", bmp->dataOffset);
-   printf("==== Info ======\n");
-   printf("size = %ld \n", bmp->size);
-   printf("Width = %ld \n", bmp->width);
-   printf("Height = %ld \n", bmp->height);
-   printf("Planes = %d \n", bmp->planes);
-   printf("BitsPerPixel = %d \n", bmp->bitsPerPixel);
-   printf("Compression = %ld \n", bmp->compression);
-   printf("ImageSize = %ld \n", bmp->imageSize);
-   printf("XpixelsPerM = %ld \n", bmp->xPixelsPerM);
-   printf("YpixelsPerM = %ld \n", bmp->yPixelsPerM);
-   printf("ColorsUsed = %ld \n", bmp->colorsUsed);
-   printf("ColorsImportant = %ld \n", bmp->colorsImportant);
-}
-
-int bmpSetPixel(BMP *bmp, int x, int y, BYTE R, BYTE G, BYTE B) {
-    Pixel *pixel;
-    int idx = y * bmp->width + x;
-    pixel = (Pixel*) &bmp->data[idx * sizeof(Pixel)];
-    pixel->R = R;
-    pixel->G = G;
-    pixel->B = B;
-}
-
-int bmpSetBox(BMP *bmp, int x, int y, int w, int h, BYTE R, BYTE G, BYTE B) {
-    int i,j;
-    for (i=0; i< 0+w; i++)
-        for (j=0; j<h; j++)
-            bmpSetPixel(bmp, x+i, y+j, R, G, B);
-}
-
 int bmpSave(BMP *bmp, char *fileName) {
     FILE *file;
     if ((file = fopen(fileName, "wb") ) == NULL ) {
