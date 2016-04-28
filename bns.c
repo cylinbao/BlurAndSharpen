@@ -125,11 +125,11 @@ void checkPixelValue(int *arr, int weight)
 	}
 }
 
-void setPixel(BYTE *data, int y, int x, int *rgb)
+void setPixel(BYTE *data, int idx, int *rgb)
 {
 	Pixel *pixelPtr;
 
-	pixelPtr = (Pixel *) &data[(y*imgWidth + x)*sizeof(Pixel)];
+	pixelPtr = (Pixel *) &data[idx*sizeof(Pixel)];
 	pixelPtr->R = rgb[0]; 
 	pixelPtr->G = rgb[1]; 
 	pixelPtr->B = rgb[2];
@@ -147,8 +147,8 @@ void cross2DConv()
 
 	for(filIdx = 0; filIdx < numFilter; filIdx++){
 		for(inIdx = 0; inIdx < numInput; inIdx++){
-			for(i = 0; i < imgHeight; i++){
-				for(j = 0; j <= i; j++){
+			for(i = 0; i < imgWidth; i++){
+				for(j = 0; j <= i && j < imgHeight; j++){
 					rgb[0] = 0; rgb[1] = 0; rgb[2] = 0;
 					weight = weights[filIdx];
 					for(k = 0; k < kernSize; k++){
@@ -169,10 +169,10 @@ void cross2DConv()
 						}
 					}		
 					checkPixelValue(rgb, weight);
-					setPixel(results[filIdx][inIdx], j, i - j, rgb);
+					setPixel(results[filIdx][inIdx], idx[0], rgb);
 				}
 			}
-			for(i = 0; i < imgHeight-1; i++){
+			for(i = 0; i < imgHeight+1; i++){
 				for(j = 0; j <= i; j++){
 					rgb[0] = 0; rgb[1] = 0; rgb[2] = 0;
 					weight = weights[filIdx];
@@ -194,7 +194,7 @@ void cross2DConv()
 						}
 					}		
 					checkPixelValue(rgb, weight);
-					setPixel(results[filIdx][inIdx], imgHeight-j, imgWidth-i+j, rgb);
+					setPixel(results[filIdx][inIdx], idx[0], rgb);
 				}
 			}
 		}
