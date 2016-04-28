@@ -125,6 +125,11 @@ void checkPixelValue(int *arr, int weight)
 	}
 }
 
+int getIdx(int y, int x)
+{
+	return y*imgWidth + x;
+}
+
 void setPixel(BYTE *data, int idx, int *rgb)
 {
 	Pixel *pixelPtr;
@@ -155,7 +160,7 @@ void cross2DConv()
 						for(l = 0; l < kernSize; l++){
 							idx[1] = j - kernLen + l;
 							idx[2] = i - kernLen + k;
-							idx[0] = idx[2] * imgWidth + idx[1];
+							idx[0] = getIdx(idx[2], idx[1]);
 							if((idx[1] >= 0) && (idx[2] >=0) && 
 								 (idx[1] < imgWidth) && (idx[2] < imgHeight)){
 								pixelPtr = (Pixel *) &data[inIdx][idx[0] * sizeof(Pixel)];
@@ -168,7 +173,7 @@ void cross2DConv()
 						}
 					}		
 					checkPixelValue(rgb, weight);
-					setPixel(results[filIdx][inIdx], i*imgWidth + j, rgb);
+					setPixel(results[filIdx][inIdx], getIdx(i, j), rgb);
 				}
 			}
 		}
