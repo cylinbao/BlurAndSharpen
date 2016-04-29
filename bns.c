@@ -150,10 +150,10 @@ void cross2DConv()
 
 	kernLen = kernSize/2;
 
-	for(filIdx = 0; filIdx < numFilter; filIdx++){
-		for(inIdx = 0; inIdx < numInput; inIdx++){
-			for(i = 0; i < imgWidth; i++){
-				for(j = 0; j <= i && j < imgHeight; j++){
+	for(i = 0; i < imgWidth; i++){
+		for(j = 0; j <= i && j < imgHeight; j++){
+			for(inIdx = 0; inIdx < numInput; inIdx++){
+				for(filIdx = 0; filIdx < numFilter; filIdx++){
 					rgb[0] = 0; rgb[1] = 0; rgb[2] = 0;
 					weight = weights[filIdx];
 					for(k = 0; k < kernSize; k++){
@@ -177,8 +177,12 @@ void cross2DConv()
 					setPixel(results[filIdx][inIdx], idx[0], rgb);
 				}
 			}
-			for(i = 0; i < imgHeight+1; i++){
-				for(j = 0; j <= i; j++){
+		}
+	}
+	for(i = 0; i < imgHeight+1; i++){
+		for(j = 0; j <= i; j++){
+			for(inIdx = 0; inIdx < numInput; inIdx++){
+				for(filIdx = 0; filIdx < numFilter; filIdx++){
 					rgb[0] = 0; rgb[1] = 0; rgb[2] = 0;
 					weight = weights[filIdx];
 					for(k = 0; k < kernSize; k++){
