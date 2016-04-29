@@ -1,4 +1,3 @@
-#include <time.h>
 #include "bmp.h"
 
 #define kernSize 9
@@ -210,11 +209,7 @@ void cross2DConv()
 	}
 }
 
-int main(int argc, char *argv[]) {
-	clock_t clkStart, clkEnd;
-
-	clkStart = clock();
-
+int main() {
 	loadImages();
 	setImageInfo();
 	initData();
@@ -223,8 +218,5 @@ int main(int argc, char *argv[]) {
 	saveImages();
 	freeMem();
 
-	clkEnd = clock();
-
-	printf("Consumed CPU clocks: %d\n", clkEnd - clkStart);
   return 0;
 }
