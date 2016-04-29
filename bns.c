@@ -116,7 +116,7 @@ void checkPixelValue(int *arr, int weight)
 	int i;
 
 	for(i = 0; i < 3; i++){
-		if(weight > 0)
+		//if(weight != 0)
 			arr[i] = arr[i] / weight;
 		if(arr[i] < 0)
 			arr[i] = 0;
@@ -150,10 +150,10 @@ void cross2DConv()
 
 	kernLen = kernSize/2;
 
-	for(i = 0; i < imgWidth; i++){
-		for(j = 0; j <= i && j < imgHeight; j++){
-			for(inIdx = 0; inIdx < numInput; inIdx++){
-				for(filIdx = 0; filIdx < numFilter; filIdx++){
+	for(inIdx = 0; inIdx < numInput; inIdx++){
+		for(filIdx = 0; filIdx < numFilter; filIdx++){
+			for(i = 0; i < imgHeight; i++){
+				for(j = 0; j < imgWidth; j++){
 					rgb[0] = 0; rgb[1] = 0; rgb[2] = 0;
 					weight = weights[filIdx];
 					for(k = 0; k < kernSize; k++){
