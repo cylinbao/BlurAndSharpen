@@ -116,7 +116,8 @@ void checkPixelValue(int *arr, int weight)
 	int i;
 
 	for(i = 0; i < 3; i++){
-		arr[i] = arr[i] / weight;
+		if(weight != 0)
+			arr[i] = arr[i] / weight;
 		if(arr[i] < 0)
 			arr[i] = 0;
 		else if(arr[i] > 255)
