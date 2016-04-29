@@ -1,4 +1,3 @@
-#include <time.h>
 #include "bmp.h"
 
 #define kernSize 9
@@ -150,10 +149,10 @@ void cross2DConv()
 
 	kernLen = kernSize/2;
 
-	for(inIdx = 0; inIdx < numInput; inIdx++){
-		for(filIdx = 0; filIdx < numFilter; filIdx++){
-			for(i = 0; i < imgHeight; i++){
-				for(j = 0; j < imgWidth; j++){
+	for(i = 0; i < imgWidth; i++){
+		for(j = 0; j <= i && j < imgHeight; j++){
+			for(inIdx = 0; inIdx < numInput; inIdx++){
+				for(filIdx = 0; filIdx < numFilter; filIdx++){
 					rgb[0] = 0; rgb[1] = 0; rgb[2] = 0;
 					weight = weights[filIdx];
 					for(k = 0; k < kernSize; k++){
@@ -180,11 +179,7 @@ void cross2DConv()
 	}
 }
 
-int main(int argc, char *argv[]) {
-	clock_t clkStart, clkEnd;
-
-	clkStart = clock();
-
+int main() {
 	loadImages();
 	setImageInfo();
 	initData();
@@ -193,8 +188,5 @@ int main(int argc, char *argv[]) {
 	saveImages();
 	freeMem();
 
-	clkEnd = clock();
-
-	printf("Consumed CPU clocks: %d\n", clkEnd - clkStart);
   return 0;
 }
