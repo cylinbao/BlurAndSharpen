@@ -1,4 +1,4 @@
-TARGET	= bnsRiscV
+TARGET	= bns-riscv
 TARGET-HOST	= bns
 CC	= ../riscv/bin/riscv64-unknown-elf-gcc
 CC-HOST	= gcc
