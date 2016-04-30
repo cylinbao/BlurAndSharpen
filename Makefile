@@ -16,7 +16,7 @@ checker: checker.c
 clean:
 	rm -fr $(TARGET) $(TARGET-HOST) $(CHECKER) ./Output/*
 
-host: bns.c bmp.h
+host: bns.c bmp.h checker
 	$(CC-HOST) -o $(TARGET-HOST) $<
 
 run: 
