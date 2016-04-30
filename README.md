@@ -112,4 +112,5 @@ This project is heavily inspired by the lab2 of the course 2015 Spring CS152 at 
 If you get any problem when you read this document or work on the project, feel free to ask google or email TA about your issue. Hope you will have a great time on this project. Thanks!
 
 TA: Chien-Yu Lin
+
 Email: myislin@gmail.com
