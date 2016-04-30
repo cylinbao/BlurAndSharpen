@@ -3,7 +3,7 @@ CC-HOST	= gcc
 TARGET	= bns-riscv
 TARGET-HOST	= bns
 SPIKE	= ../riscv/bin/spike
-SPIKE-OPTION	= --dc=32:2:64 pk
+SPIKE-OPTION	= --dc=64:1:64 pk
 CHECKER	= checker
 
 bns-riscv: bns.c checker
