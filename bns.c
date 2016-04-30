@@ -1,4 +1,3 @@
-#include <time.h>
 #include "bmp.h"
 
 #define kernSize 9
@@ -117,7 +116,8 @@ void checkPixelValue(int *arr, int weight)
 	int i;
 
 	for(i = 0; i < 3; i++){
-		arr[i] = arr[i] / weight;
+		if(weight != 0)
+			arr[i] = arr[i] / weight;
 		if(arr[i] < 0)
 			arr[i] = 0;
 		else if(arr[i] > 255)
@@ -150,20 +150,21 @@ void cross2DConv()
 
 	kernLen = kernSize/2;
 
-	for(inIdx = 0; inIdx < numInput; inIdx++){
-		for(filIdx = 0; filIdx < numFilter; filIdx++){
-			for(i = 0; i < imgHeight; i++){
-				for(j = 0; j < imgWidth; j++){
+	for(i = 0; i < imgWidth; i++){
+		for(j = 0; j <= i && j < imgHeight; j++){
+			for(inIdx = 0; inIdx < numInput; inIdx++){
+				for(filIdx = 0; filIdx < numFilter; filIdx++){
 					rgb[0] = 0; rgb[1] = 0; rgb[2] = 0;
 					weight = weights[filIdx];
 					for(k = 0; k < kernSize; k++){
 						for(l = 0; l < kernSize; l++){
-							idx[1] = j - kernLen + l;
-							idx[2] = i - kernLen + k;
-							idx[0] = getIdx(idx[2], idx[1]);
-							if((idx[1] >= 0) && (idx[2] >=0) && 
+							idx[0] = getIdx(j, i - j);
+							idx[1] = idx[0]%imgWidth - kernLen + l;
+							idx[2] = idx[0]/imgWidth - kernLen + k;
+							if((idx[1] >= 0) && (idx[2] >= 0) && 
 								 (idx[1] < imgWidth) && (idx[2] < imgHeight)){
-								pixelPtr = (Pixel *) &data[inIdx][idx[0] * sizeof(Pixel)];
+								pixelPtr = (Pixel *) &data[inIdx][getIdx(idx[2], idx[1])
+																									* sizeof(Pixel)];
 								rgb[0] += filters[filIdx][k][l] * (pixelPtr->R - 0);
 								rgb[1] += filters[filIdx][k][l] * (pixelPtr->G - 0);
 								rgb[2] += filters[filIdx][k][l] * (pixelPtr->B - 0);
@@ -173,18 +174,43 @@ void cross2DConv()
 						}
 					}		
 					checkPixelValue(rgb, weight);
-					setPixel(results[filIdx][inIdx], getIdx(i, j), rgb);
+					setPixel(results[filIdx][inIdx], idx[0], rgb);
+				}
+			}
+		}
+	}
+	for(i = 0; i < imgHeight+1; i++){
+		for(j = 0; j <= i; j++){
+			for(inIdx = 0; inIdx < numInput; inIdx++){
+				for(filIdx = 0; filIdx < numFilter; filIdx++){
+					rgb[0] = 0; rgb[1] = 0; rgb[2] = 0;
+					weight = weights[filIdx];
+					for(k = 0; k < kernSize; k++){
+						for(l = 0; l < kernSize; l++){
+							idx[0] = getIdx(imgHeight - j, imgWidth - i + j);
+							idx[1] = idx[0]%imgWidth - kernLen + l;
+							idx[2] = idx[0]/imgWidth - kernLen + k;
+							if((idx[1] >= 0) && (idx[2] >=0) && 
+								 (idx[1] < imgWidth) && (idx[2] < imgHeight)){
+								pixelPtr = (Pixel *) &data[inIdx][getIdx(idx[2], idx[1])
+																									* sizeof(Pixel)];
+								rgb[0] += filters[filIdx][l][k] * (pixelPtr->R - 0);
+								rgb[1] += filters[filIdx][l][k] * (pixelPtr->G - 0);
+								rgb[2] += filters[filIdx][l][k] * (pixelPtr->B - 0);
+							}                               
+							else                            
+								weight -= filters[filIdx][l][k];
+						}
+					}		
+					checkPixelValue(rgb, weight);
+					setPixel(results[filIdx][inIdx], idx[0], rgb);
 				}
 			}
 		}
 	}
 }
 
-int main(int argc, char *argv[]) {
-	clock_t clkStart, clkEnd;
-
-	clkStart = clock();
-
+int main() {
 	loadImages();
 	setImageInfo();
 	initData();
@@ -193,8 +219,5 @@ int main(int argc, char *argv[]) {
 	saveImages();
 	freeMem();
 
-	clkEnd = clock();
-
-	printf("Consumed CPU clocks: %d\n", clkEnd - clkStart);
   return 0;
 }

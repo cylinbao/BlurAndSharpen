@@ -1,9 +1,28 @@
-CC	:= gcc
-CFLAGS	:= -g
+CC	= ../riscv/bin/riscv64-unknown-elf-gcc
+CC-HOST	= gcc
+TARGET	= bns-riscv
+TARGET-HOST	= bns
+SPIKE	= ../riscv/bin/spike
+SPIKE-OPTION	= --dc=32:2:64 pk
+CHECKER	= checker
 
-bns: bns.c bmp.h
-	$(CC) -o $@ $(CFLAGS) $<
+bns-riscv: bns.c checker
+	$(CC) -o $@ $<
 
-.PHONY: clean
-clean: bns Output/*
-	rm -fr $?
+checker: checker.c
+	$(CC-HOST) -o $@ $<
+
+.PHONY: clean host run run-host
+clean:
+	rm -fr $(TARGET) $(TARGET-HOST) $(CHECKER) ./Output/*
+
+host: bns.c bmp.h
+	$(CC-HOST) -o $(TARGET-HOST) $<
+
+run: 
+	$(SPIKE) $(SPIKE-OPTION) $(TARGET)
+	./$(CHECKER)
+
+run-host: 
+	./$(TARGET-HOST)
+	./$(CHECKER)
