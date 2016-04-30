@@ -79,6 +79,7 @@ Note: Task 2.1 plus task 2.2 will be responsible for the total points in the com
 * Write a shell script called "task2_2.sh" to indicate how to run your modified spike with corresponding cache configuratoin.
 * Create a directory named "task2_2" to save the files: cachesim.h, cachesim.cc and task2_2.sh.
 * Recalculate the total cache access time for the origin program within the modified simulator. Put the results in your report.
+
 #### 2.3 Bonus: Add the L2 cache (up to 10%)
 * Now consider the L2 cache and redesign your cache policy.
 * The limit of the L2 cache size is 8KB.
@@ -95,8 +96,7 @@ Upload all the asked files to E3 in right format before the deadline. TA will wr
 	* Pack your report and source code into a file named "Task#_studentID.zip" in zip format. Then upload it to E3.
 * Completeness 40%
 	* You must finish the necessary tasks and follow the requirements to get the points in this part.
-* Report 40%
-Your report should include the following parts
+* Report 40% (Your report should include the following parts)
 	* The descriptions of all the modifications you have made and explain the reasons why you do this. (30% at most)
 	* The descriptions and explainations of all the results you can get from the tasks. (30% at most)
 	* Discussions. This part can be: What phenomenons you have found in the project? What extra works you did in the project? How did you solve the errors(if any) when you built up the execution environment? and so on. You are free to add other topics related to this project. Please write meaningful discussions as more as possible to gain higher score in this part (30% at most)
