@@ -26,8 +26,7 @@ You may want to test the program first on your host machine. Similarly, you can 
 	$ make run-host
 
 ## Task requirements
-### Task 1 Software approach (Due date: 5/31 23:59)
-------
+### Task 1 - Software approach (Due date: 5/31 23:59)
 TA has provided the reference code. In the program, it will get three input images, apply two different filters respectively  and generate 6 (2X3) outputs stored under "Output" directory. You can read previous descriptoin to know how to use this reference code. But due to the limited programming skills of TA. The reference program looks like has extremely poor cache performance. Please use your solid computer organization knowledge and ultimate coding techniques to rewrite the program and make it work better. 
 Note: Task 1.1 plus task 1.2 will be responsible for the total points in the complteness part (40% in total. Please check the grading policy)
 #### 1.1 Modify the given blur-and-sharp program to gain better performance(bns.c) (25%)
@@ -59,8 +58,7 @@ spike also supports L2 cache simulation by plusing "--l2" in the options. You ca
 * Create a directory called "bonus" to store all the needed files for this task.
 * Discuss the impacts in your report.
 
-### Task 2 Hardware approach (Due date: 6/14 23:59)
-------
+### Task 2 - Hardware approach (Due date: 6/14 23:59)
 As what you have learned in the class, the behaviors of the cache can incluence the performance dramatically. So it's possible to improve it through modify the reactions of the cache on the read/write accesses. For spike, the riscv isa simulator, the related files of the cache simulation are cachesim.cc and cachesim.h. (You can find those files under the directory "/path/to/riscv-isa-sim/riscv") You can customize the cache behavior by modifying these two file. You can redesign the replacement policy or add a prefetching mechanism onto the cache simulation to gain better cache performance.
 Note: Task 2.1 plus task 2.2 will be responsible for the total points in the complteness part (40% in total. Please check the grading policy)
 #### 2.1 Modify the simulation of L1 cache in spike for the reference program to obtain better performance (30%)
@@ -89,7 +87,7 @@ Note: Task 2.1 plus task 2.2 will be responsible for the total points in the com
 * Modify the cache-access-time formula to calculate the new total cache access time and compare the results.
 * Discuss the impact in your report.
 
-### Grading policy (The same for the two tasks)
+## Grading policy (The same for the two tasks)
 Upload all the asked files to E3 in right format before the deadline. TA will write a testing script to grade your project automatically. So if you don't follow the naming policy, you will have extraordinary high probability to get no point. Who doesn't submit on time will only get 70% of the total points. If you don't upload till 3 days after the due date, you will just get zero point. Otherwise, the grade will be evaluated by the below items:
 * Must followed rules
 	* Name your report as "Report_task#_studentID.pdf". For example, if it's task1 and your ID is 0605040, then set your report as "Report_task1_0605040.pdf".
