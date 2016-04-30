@@ -32,10 +32,11 @@ Note: Task 1.1 plus task 1.2 will be responsible for the total points in the com
 #### 1.1 Modify the given blur-and-sharp program to gain better performance(bns.c) (25%)
 * Try to understand what is image bluring and sharpening, what is 2D-convolution and what does the reference code do first.
 * Use what you have learned in the course and modify the program.
-* Calculate the total cache accessing time for L1 $I and $D (instruction-cache & data-cache) by following formula. (For the hit_time, please refer to the file "CacheAccessTime.pdf" to get the right value for your cache setting. For the penalty, we assume the backside of L1 is connected to a DRAM and it takes 100ns to access that DRAM) Put the results in your report.
+* Calculate the total cache accessing time for L1 $I and $D (instruction-cache & data-cache) by following formula. For the hit_time, we assume it's 1 unit time. For the penalty, we assume the backside of L1 is connected to a DRAM and it takes 300 unit time to access that DRAM. Remember to put the results in your report.
 
 		total_cache_access_time = access_count * (hit_time + miss_rate * miss_penalty)
 	
+	For example, if we have totally 500 accesses with 1% miss rate, the total cache access time will be: 500 * (1 + 0.01 * 300) = 2000 unit time.
 * You must have performance enhancement (less total_cache_access_time) to get points. If your result is equal or worse than the reference code, you will get zero point on this part.
 * You must pass the testing by executing the ckecker. If you pass the ckecking, you will get the message "Congratulations! You have passed the checking.". On the other hand, you will get the message "Sorry, your results are wrong!".
 * Do not modify the checker program.
@@ -52,6 +53,7 @@ Note: Task 1.1 plus task 1.2 will be responsible for the total points in the com
 
 #### 1.3 Bonus: Add the L2 cache (up to 5%)
 spike also supports L2 cache simulation by plusing "--l2" in the options. You can do some experiments and modify your code and the cache configuration to reach the best cache performance with the fastest cache access time.
+* Assume the hit time for L2 cache is 2 unit time.
 * The limit of the L2 cache size is 8KB.
 * Modify the cache-access-time formula to calculate the new total cache access time and compare the results.
 * Put the configuration at the corresponding location in Makefile and make TA can use "make run-l2" to rerun your program.
@@ -82,6 +84,7 @@ Note: Task 2.1 plus task 2.2 will be responsible for the total points in the com
 
 #### 2.3 Bonus: Add the L2 cache (up to 10%)
 * Now consider the L2 cache and redesign your cache policy.
+* Assume the hit time for L2 cache is 2 unit time.
 * The limit of the L2 cache size is 8KB.
 * Write a shell script called "bonus.sh" to indicate how to run your modified spike with corresponding cache configuratoin.
 * Create a directory named "bonus" to store the files: cachesim.h, cachesim.cc and bonus.sh.
