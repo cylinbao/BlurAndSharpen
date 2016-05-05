@@ -9,14 +9,14 @@ Image bluring/unsharping are two of the most important techniques in digital ima
 There are many opportunities to improve the performance of doing the 2D-convolution. In this project, we aim on the L1 cache performance on riscv architecture with the spike, the riscv isa simulator. You are asked to finished the job through both of the software and hardware approaches.
 
 ## Environment Setup
-To get the spike and the compiler for riscv, you have to download the source code of riscv-tools from our lab's repository and compile it by yourself. Use following commands to get the code and finish the installation by refering the guides on the repository page - [riscv-tools](https://github.com/nctu-pcslab/riscv-tools)
+To get the spike and the compiler for riscv, you have to download the source code of riscv-tools from our lab's repository and compile it by yourself. Use following commands to get the code and finish the installation by refering the guides on the [riscv-tools repository page](https://github.com/nctu-pcslab/riscv-tools)
 	
 	$ git clone https://github.com/nctu-pcslab/riscv-tools.git
 
 Note: You have to install at least riscv-fesvr, riscv-gnu-toolchain, riscv-isa-sim and riscv-pk in the riscv-tools to complete this project.
 
 ## Compile the given program from source code
-Once you get the needed tools, you can download the source code of this program and compile it with the belowing commands. It will generate the binary of our main program - bns-riscv and the testing program - checker. Then, use spike to run our program and test it right after the execution.
+Once you get the needed tools, you can download the source code of this program and compile it with the belowing commands. It will generate the binary of our main program, bns-riscv, and the testing program, checker. Then, use spike to run our program and test it right after the execution.
 
 	$ git clone https://github.com/nctu-psclab/CO-FP-2016.git
 	$ cd CO-FP-2016
