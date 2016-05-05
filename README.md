@@ -33,7 +33,7 @@ You may want to test the program first on your host machine. Similarly, you can 
 TA has provided the reference code. In the program, it will apply two different filters on three input images respectively and generate 6 (2X3) outputs which are stored under "Output" directory. You can read previous descriptoin to know how to use this reference code. Due to the TA's limited programming skills. The reference program looks like has extremely poor cache performance. Please use your solid computer organization knowledge and ultimate coding techniques to rewrite the program and make it work better. 
 
 Note: Task1.1 plus task1.2 will be responsible for the total points in the complteness part (40% in total, please check the grading policy)
-#### 1.1 Modify the given blur-and-sharp program (bns.c) to gain better performance (25%)
+#### 1.1 Modify the given blur-and-sharp program (bns.c) to gain better performance (30%)
 * Try to understand what is image bluring and sharpening, what is 2D-convolution and what does the reference code do first.
 * Use what you have learned in the course and modify the program.
 * Calculate the total cache accessing time for L1 $I and $D (instruction-cache & data-cache) by the following formula. For the hit_time, we assume it's 1 unit time. For the penalty, we assume the backside of L1 is connected to a DRAM and it takes 300 unit time to access that DRAM. Remember to put the results in your report.
@@ -49,7 +49,7 @@ Note: Task1.1 plus task1.2 will be responsible for the total points in the compl
 * You must pass the testing by executing the ckecker. If you pass the ckecking, you will get the message "Congratulations! You have passed the checking.". On the other hand, you will get the message "Sorry, your results are wrong!".
 * Do not modify the checker program.
 
-#### 1.2 Find out the optimal L1 cache configuration (15%)
+#### 1.2 Find out the optimal L1 cache configuration (10%)
 * Find out the best configuratoin which can bring you the fastest cache accessing time.
 * The size limit of the L1 $I and $D is 4KB respective. Do not use cache size larger than 4KB.
 * You are recommended to write a shell script to help you to find out the best parameters automatically.
@@ -69,7 +69,7 @@ spike also supports L2 cache simulation by plusing "--l2" as the options. You ca
 As what you have learned in the class, the behaviors of the cache can incluence the performance dramatically. So it's possible to improve it through modifying the design of the cache. For spike, the riscv-isa-simulator, the related files of the cache simulation are "cachesim.cc" and "cachesim.h". (You can find those files under the directory "/path/to/riscv-isa-sim/riscv") You can customize the cache behavior by modifying these two file. You can redesign the replacement policy or add a prefetching mechanism onto the cache simulation to gain better cache performance.
 
 Note: Task2.1 plus task2.2 will be responsible for the total points in the completeness part (40% in total, please check the grading policy)
-#### 2.1 Modify the spike's simulation of L1 cache to obtain better performance for the reference program (30%)
+#### 2.1 Modify the simulation of L1 cache in spike to obtain better performance for the reference program (30%)
 * You are restricted to modify the two files, "cachesim.h" and "cachesim.cc" only.
 * Do not modify the part to calculate cache access count and the miss count.
 * You must have performance enhancement (less total_cache_access_time) to get points. If your result is equal or worse than the reference program, you will get zero point on this part.
