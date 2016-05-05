@@ -46,7 +46,7 @@ Note: Task1.1 plus task1.2 will be responsible for the total points in the compl
 		$ spike --ic=32:1:64 --dc=64:1:64 pk bns-riscv
 
 And the result you get may look this
-![screenshot](https://github.com/myislin/BlurAndSharpen/screenshot.png "screenshot")
+![screenshot](https://github.com/myislin/BlurAndSharpen/blob/master/screenshot.png "screenshot")
 
 * You must have performance enhancement (less total_cache_access_time) to get points. If your result is equal or worse than the reference code, you will get zero point on this part.
 * You must pass the testing by executing the ckecker. If you pass the ckecking, you will get the message "Congratulations! You have passed the checking.". On the other hand, you will get the message "Sorry, your results are wrong!".
