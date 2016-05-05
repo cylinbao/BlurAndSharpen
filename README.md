@@ -117,6 +117,8 @@ Upload all the asked files to E3 in right format before the deadline. TA will wr
 	* We will sort your total cache access time. The best one can get all points and the worst one will get 1 point in this part for each task. 
 	* We will not compare your results in the bonus parts.
 
+Note: The two tasks are graded seperately. The sumation of the grades will be responsible for 20% of your final grade for this course. So please work hard on this project.
+
 ## Acknowledgments
 This project is inspired by the lab2 of the course 2015 Spring CS152 at UC Berkeley. It's made possible through the hard works of Andrew Waterman, Yunsup Lee, David Patterson and Krste Asanovi ́c who developed the RISC-V ISA and the made the complete toolchain.
 
