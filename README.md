@@ -41,9 +41,12 @@ Note: Task1.1 plus task1.2 will be responsible for the total points in the compl
 		total_cache_access_time = access_count * (hit_time + miss_rate * miss_penalty)
 	
 	For example, if we have totally 500 accesses with 1% miss rate, the total cache access time will be: 500 * (1 + 0.01 * 300) = 2000 unit time.
-* For the cache usage statistic, you can use the option "--ic" and "--dc" to configure the cache of spike and it will show the cache usage after the program is done. The parameters for each option would be "sets:associativity:linesize". If you multiple all the numbers together, you will get the actual cache size. For example, if you set "--ic=32:1:64 --dc=64:1:64", you will get a 2KB(32X1X64) instruction-cache ($I) and 4KB(64X1X64) data-cache ($D). In practice, you may type belowing command to run the simulation.
+* For the cache usage statistic, you can use the option "--ic" and "--dc" to configure the cache of spike and it will show the cache usage after the program is done. The parameters for each option would be "sets:associativity:linesize". If you multiple all the numbers together, you will get the actual cache size. For example, if you set "--ic=64:1:64 --dc=64:1:64", you will get a 4KB(64X1X64) instruction-cache ($I) and 4KB data-cache ($D). In practice, you may type belowing command to run the simulation.
 
 		$ spike --ic=32:1:64 --dc=64:1:64 pk bns-riscv
+
+And the result you get may look this
+![screenshot](https://github.com/myislin/BlurAndSharpen/screenshot.png "screenshot")
 
 * You must have performance enhancement (less total_cache_access_time) to get points. If your result is equal or worse than the reference code, you will get zero point on this part.
 * You must pass the testing by executing the ckecker. If you pass the ckecking, you will get the message "Congratulations! You have passed the checking.". On the other hand, you will get the message "Sorry, your results are wrong!".
