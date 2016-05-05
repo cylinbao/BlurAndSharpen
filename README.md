@@ -36,16 +36,16 @@ Note: Task1.1 plus task1.2 will be responsible for the total points in the compl
 #### 1.1 Modify the given blur-and-sharp program (bns.c) to gain better performance (30%)
 * Try to understand what is image bluring and sharpening, what is 2D-convolution and what does the reference code do first.
 * Use what you have learned in the course and modify the program.
-* Calculate the total cache accessing time for L1 $I and $D (instruction-cache & data-cache) by the following formula. For the hit_time, we assume it's 1 unit time. For the penalty, we assume the backside of L1 is connected to a DRAM and it takes 300 unit time to access that DRAM. Remember to put the results in your report.
+* Calculate the total cache accessing time for L1 I$ and D$ (instruction-cache & data-cache) by the following formula. For the hit_time, we assume it's 1 unit time. For the penalty, we assume the backside of L1 is connected to a DRAM and it takes 300 unit time to access that DRAM. Remember to put the results in your report.
 
 		total_cache_access_time = access_count * (hit_time + miss_rate * miss_penalty)
 	
 	For example, if we have totally 500 accesses with 1% miss rate, the total cache access time will be: 500 * (1 + 0.01 * 300) = 2000 unit time.
-* For the cache usage statistic, you can use the option "--ic" and "--dc" to configure the cache of spike and it will show the cache usage after the program is done. The parameters for each option would be "sets:associativity:linesize". If you multiple all the numbers together, you will get the actual cache size. For example, if you set "--ic=64:1:64 --dc=64:1:64", you will get a 4KB(64X1X64) instruction-cache ($I) and 4KB data-cache ($D). In practice, you may type belowing command to run the simulation.
+* For the cache usage statistic, you can use the option "--ic" and "--dc" to configure the cache of spike and it will show the cache usage after the program is done. The parameters for each option would be "sets:associativity:linesize". If you multiple all the numbers together, you will get the actual cache size. For example, if you set "--ic=64:1:64 --dc=64:1:64", you will get a 4KB(64X1X64) instruction-cache (I$) and 4KB data-cache (D$). In practice, you may type belowing command to run the simulation.
 
 		$ spike --ic=32:1:64 --dc=64:1:64 pk bns-riscv
+And the result you get may look like this
 
-And the result you get may look this
 ![screenshot](https://github.com/myislin/BlurAndSharpen/blob/master/screenshot.png "screenshot")
 
 * You must have performance enhancement (less total_cache_access_time) to get points. If your result is equal or worse than the reference code, you will get zero point on this part.
@@ -54,7 +54,7 @@ And the result you get may look this
 
 #### 1.2 Find out the optimal L1 cache configuration (10%)
 * Find out the best configuratoin which can bring you the fastest cache accessing time.
-* The size limit of the L1 $I and $D is 4KB respective. Do not use cache size larger than 4KB.
+* The size limit of the L1 I$ and D$ is 4KB respective. Do not use cache size larger than 4KB.
 * You are recommended to write a shell script to help you to find out the best parameters automatically.
 * Create a directory named "task1" to store all the needed source codes for both task1.1 and task1.2 including your modified "bns.c".
 * Write the cache configuration in the corresponding place in the Makefile and let TA can use "make run" to reproduce your result.
@@ -81,7 +81,7 @@ Note: Task2.1 plus task2.2 will be responsible for the total points in the compl
 		spike --ic=32:2:64 --dc=64:1:64 pk bns-riscv
 
 * Create a directory named "task2-1" to store the files: "cachesim.h", "cachesim.cc" and "task2_1.sh".
-* The size limit of the L1 $I and $D is 4KB respective. Do not use cache size larger than 4KB.
+* The size limit of the L1 I$ and D$ is 4KB respective. Do not use cache size larger than 4KB.
 * Recalculate the total cache access time for the origin program within the modified simulator. Put the results in your report.
 * Your results must still pass the checking of the checker.
 
