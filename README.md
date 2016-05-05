@@ -33,7 +33,7 @@ You may want to test the program first on your host machine. Similarly, you can 
 TA has provided the reference code. In the program, it will apply two different filters on three input images respectively and generate 6 (2X3) outputs which are stored under "Output" directory. You can read previous descriptoin to know how to use this reference code. Due to the TA's limited programming skills. The reference program looks like has extremely poor cache performance. Please use your solid computer organization knowledge and ultimate coding techniques to rewrite the program and make it work better. 
 
 Note: Task1.1 plus task1.2 will be responsible for the total points in the complteness part (40% in total, please check the grading policy)
-#### 1.1 Modify the given blur-and-sharp program (bns.c) to gain better performance (30%)
+#### 1.1 Modify the given blur-and-sharpen program (bns.c) to gain better performance (30%)
 * Try to understand what is image bluring and sharpening, what is 2D-convolution and what does the reference code do first.
 * Use what you have learned in the course and modify the program.
 * Calculate the total cache accessing time for L1 I$ and D$ (instruction-cache & data-cache) by the following formula. For the hit_time, we assume it's 1 unit time. For the penalty, we assume the backside of L1 is connected to a DRAM and it takes 300 unit time to access that DRAM. Remember to put the results in your report.
@@ -43,13 +43,13 @@ Note: Task1.1 plus task1.2 will be responsible for the total points in the compl
 	For example, if we have totally 500 accesses with 1% miss rate, the total cache access time will be: 500 * (1 + 0.01 * 300) = 2000 unit time.
 * For the cache usage statistic, you can use the option "--ic" and "--dc" to configure the cache of spike and it will show the cache usage after the program is done. The parameters for each option would be "sets:associativity:linesize". If you multiple all the numbers together, you will get the actual cache size. For example, if you set "--ic=64:1:64 --dc=64:1:64", you will get a 4KB(64X1X64) instruction-cache (I$) and 4KB data-cache (D$). In practice, you may type belowing command to run the simulation.
 
-		$ spike --ic=32:1:64 --dc=64:1:64 pk bns-riscv
+		$ spike --ic=64:1:64 --dc=64:1:64 pk bns-riscv
 And the result you get may look like this
 
 	![screenshot](https://github.com/myislin/BlurAndSharpen/blob/master/screenshot.png "screenshot")
 
 * You must have performance enhancement (less total_cache_access_time) to get points. If your result is equal or worse than the reference code, you will get zero point on this part.
-* You must pass the testing by executing the ckecker. If you pass the ckecking, you will get the message "Congratulations! You have passed the checking.". On the other hand, you will get the message "Sorry, your results are wrong!".
+* You can test your output by executing the ckecker and you must pass the test to make sure your result is right. If you pass the ckecking, you will get the message "Congratulations! You have passed the checking.". On the other hand, you will get the message "Sorry, your results are wrong!".
 * Do not modify the checker program.
 
 #### 1.2 Find out the optimal L1 cache configuration (10%)
@@ -83,7 +83,7 @@ Note: Task2.1 plus task2.2 will be responsible for the total points in the compl
 * Create a directory named "task2-1" to store the files: "cachesim.h", "cachesim.cc" and "task2_1.sh".
 * The size limit of the L1 I$ and D$ is 4KB respective. Do not use cache size larger than 4KB.
 * Recalculate the total cache access time for the origin program within the modified simulator. Put the results in your report.
-* Your results must still pass the checking of the checker.
+* Your result must still passes the checking of the checker.
 
 #### 2.2 Modify the simulation of L1 cache in spike for the modified program your have done in the taks1 to obtain better performance (10%)
 * The same constraints as task 2.1.
