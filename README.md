@@ -19,6 +19,7 @@ Note: You have to install at least riscv-fesvr, riscv-gnu-toolchain, riscv-isa-s
 Once you get the needed tools, you can download the source code of this program and compile it with the belowing commands. It will generate the binary of our main program - bns-riscv and the testing program - checker. Then, use spike to run our program and test it right after the execution.
 
 	$ git clone https://github.com/nctu-psclab/CO-FP-2016.git
+	$ cd CO-FP-2016
 	$ make 
 	$ make run
 
