@@ -1,22 +1,24 @@
 # NCTU EE 2016 Spring Computer Organization Final Project
 This program will blur and sharpen three images under directory "Images" respectively and save the results in directory "Output".
 
-Your job is to improve the cache perfromance on the riscv-isa-simulator, spike, through software and hardware (modify the simulator) appraoches.
+Your job is to improve the cache perfromance on the spike, the riscv-isa-simulator, through software and hardware (modifying the simulator) appraoches.
 
 ## Introduction
-Image bluring/unsharping are two of the most important techniques in digital image processing used often in daily life to remove noise and enhance image quality. They are basically doing 2D-convolution with a low-pass/high-pass filter onto an image. Please check the following links to obtain more information: [convolution](https://en.wikipedia.org/wiki/Convolution), [bluring](http://homepages.inf.ed.ac.uk/rbf/HIPR2/gsmooth.htm) and [unsharping](http://homepages.inf.ed.ac.uk/rbf/HIPR2/unsharp.htm).
-There are many opportunities to improve the performance of doing the 2D-convolution through software and hardware approaches. In this project, we aim on the L1 cache performance on riscv architecture with the riscv isa simulator - spike. You are asked to finished the job by both of the software and hardware approaches.
+Image bluring/unsharping are two of the most important techniques in digital image processing used often in daily life to remove noise and enhance image quality. They basically do 2D-convolution with a low-pass/high-pass filter onto an image. Please check the following links to obtain more information: [convolution](https://en.wikipedia.org/wiki/Convolution), [bluring](http://homepages.inf.ed.ac.uk/rbf/HIPR2/gsmooth.htm) and [unsharping](http://homepages.inf.ed.ac.uk/rbf/HIPR2/unsharp.htm).
+
+There are many opportunities to improve the performance of doing the 2D-convolution. In this project, we aim on the L1 cache performance on riscv architecture with the spike, the riscv isa simulator. You are asked to finished the job through both of the software and hardware approaches.
 
 ## Environment Setup
-To get the simulator - spike and the compiler for riscv architecture, you have to download the source code of riscv-tools from our lab's repository and compile it by yourself. Use following commands to get the code and finish the installation by refering the guides on the repository page - [riscv-tools](https://github.com/nctu-pcslab/riscv-tools)
+To get the spike and the compiler for riscv, you have to download the source code of riscv-tools from our lab's repository and compile it by yourself. Use following commands to get the code and finish the installation by refering the guides on the repository page - [riscv-tools](https://github.com/nctu-pcslab/riscv-tools)
 	
 	$ git clone https://github.com/nctu-pcslab/riscv-tools.git
 
-Note: You have to install at least riscv-fesvr, riscv-gnu-toolchain, riscv-isa-sim and riscv-pk to complete the jobs in this project.
+Note: You have to install at least riscv-fesvr, riscv-gnu-toolchain, riscv-isa-sim and riscv-pk in the riscv-tools to complete this project.
 
 ## Compile the given program from source code
-Once you get the needed tools, you can use the belowing commands to compile our source code. It will generate the binary of our main program - bns-riscv and the testing program - checker. Then, use spike to run our program and test it right after the execution.
+Once you get the needed tools, you can download the source code of this program and compile it with the belowing commands. It will generate the binary of our main program - bns-riscv and the testing program - checker. Then, use spike to run our program and test it right after the execution.
 
+	$ git clone https://github.com/nctu-psclab/CO-FP-2016.git
 	$ make 
 	$ make run
 
@@ -27,37 +29,37 @@ You may want to test the program first on your host machine. Similarly, you can 
 
 ## Task requirements
 ### Task 1 - Software approach (Due date: 5/31 23:59)
-TA has provided the reference code. In the program, it will get three input images, apply two different filters respectively  and generate 6 (2X3) outputs stored under "Output" directory. You can read previous descriptoin to know how to use this reference code. But due to the limited programming skills of TA. The reference program looks like has extremely poor cache performance. Please use your solid computer organization knowledge and ultimate coding techniques to rewrite the program and make it work better. 
+TA has provided the reference code. In the program, it will apply two different filters on three input images respectively and generate 6 (2X3) outputs which are stored under "Output" directory. You can read previous descriptoin to know how to use this reference code. Due to the TA's limited programming skills. The reference program looks like has extremely poor cache performance. Please use your solid computer organization knowledge and ultimate coding techniques to rewrite the program and make it work better. 
 Note: Task 1.1 plus task 1.2 will be responsible for the total points in the complteness part (40% in total. Please check the grading policy)
-#### 1.1 Modify the given blur-and-sharp program to gain better performance(bns.c) (25%)
+#### 1.1 Modify the given blur-and-sharp program (bns.c) to gain better performance (25%)
 * Try to understand what is image bluring and sharpening, what is 2D-convolution and what does the reference code do first.
 * Use what you have learned in the course and modify the program.
-* Calculate the total cache accessing time for L1 $I and $D (instruction-cache & data-cache) by following formula. For the hit_time, we assume it's 1 unit time. For the penalty, we assume the backside of L1 is connected to a DRAM and it takes 300 unit time to access that DRAM. Remember to put the results in your report.
+* Calculate the total cache accessing time for L1 $I and $D (instruction-cache & data-cache) by the following formula. For the hit_time, we assume it's 1 unit time. For the penalty, we assume the backside of L1 is connected to a DRAM and it takes 300 unit time to access that DRAM. Remember to put the results in your report.
 
 		total_cache_access_time = access_count * (hit_time + miss_rate * miss_penalty)
 	
 	For example, if we have totally 500 accesses with 1% miss rate, the total cache access time will be: 500 * (1 + 0.01 * 300) = 2000 unit time.
+* For the cache usage statistic, you can use the option "--ic" and "--dc" to configure the cache of spike and it will show the cache usage after the program is done. The parameters for each option would be "sets:associativity:linesize". If you multiple all the numbers together, you will get the actual cache size. For example, if you set "--ic=32:1:64 --dc=64:1:64", you will get a 2KB(32X1X64) instruction-cache ($I) and 4KB(64X1X64) data-cache ($D). In practice, you may type belowing command to run the simulation.
+
+		$ spike --ic=32:1:64 --dc=64:1:64 pk bns-riscv
+
 * You must have performance enhancement (less total_cache_access_time) to get points. If your result is equal or worse than the reference code, you will get zero point on this part.
 * You must pass the testing by executing the ckecker. If you pass the ckecking, you will get the message "Congratulations! You have passed the checking.". On the other hand, you will get the message "Sorry, your results are wrong!".
 * Do not modify the checker program.
 
 #### 1.2 Find out the optimal L1 cache configuration (15%)
-* You can use the option "--ic" and "--dc" to configure the cache of spike. The parameters for each option would be "sets:associativity:linesize". If you multiple all the numbers together, you will get the cache size. For example, if you set "--ic=32:1:64 --dc=64:1:64", you will get a 2KB(32X1X64) instruction-cache and 4KB(64X1X64) data-cache. In the real case, you may type belowing command to run the simulation.
-
-		$ spike --ic=64:1:64 --dc=32:1:64 pk bns-riscv
-
 * Find out the best configuratoin which can bring you the fastest cache accessing time.
 * The size limit of the L1 $I and $D is 4KB respective. Do not use cache size larger than 4KB.
-* You are recommanded to write a shell script to help you to find out the best parameters automatically.
+* You are recommended to write a shell script to help you to find out the best parameters automatically.
 * Write the cache configuration in the corresponding place in the Makefile and let TA can use "make run" to reproduce your result.
 
 #### 1.3 Bonus: Add the L2 cache (up to 5%)
-spike also supports L2 cache simulation by plusing "--l2" in the options. You can do some experiments and modify your code and the cache configuration to reach the best cache performance with the fastest cache access time.
+spike also supports L2 cache simulation by plusing "--l2" as the options. You can do some experiments and modify your code and the cache configuration to reach the best cache performance with the fastest cache access time.
 * Assume the hit time for L2 cache is 2 unit time.
 * The limit of the L2 cache size is 8KB.
-* Modify the cache-access-time formula to calculate the new total cache access time and compare the results.
-* Put the configuration at the corresponding location in Makefile and make TA can use "make run-l2" to rerun your program.
+* Modify the cache_access_time formula to calculate the new total cache access time and compare the results.
 * Create a directory called "bonus" to store all the needed files for this task.
+* Put the configuration at the corresponding location in Makefile and make TA can use "make run-l2" to rerun your program.
 * Discuss the impacts in your report.
 
 ### Task 2 - Hardware approach (Due date: 6/14 23:59)
