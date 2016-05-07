@@ -72,7 +72,7 @@ spike also supports L2 cache simulation by plusing "--l2" as the options. You ca
 As what you have learned in the class, the behaviors of the cache can incluence the performance dramatically. So it's possible to improve it through modifying the design of the cache. For spike, the riscv-isa-simulator, the related files of the cache simulation are "cachesim.cc" and "cachesim.h". (You can find those files under the directory "/path/to/riscv-isa-sim/riscv") You can customize the cache behavior by modifying these two file. You can redesign the replacement policy or add a prefetching mechanism onto the cache simulation to gain better cache performance.
 
 Note: Task2.1 plus task2.2 will be responsible for the total points in the completeness part (40% in total, please check the grading policy)
-#### 2.1 Modify the simulation of L1 cache in spike to obtain better performance for the reference program (30%)
+#### 2.1 Modify the simulation of L1 cache in spike to obtain better performance for the basis program (30%)
 * You are restricted to modify the two files, "cachesim.h" and "cachesim.cc" only.
 * Do not modify the part to calculate cache access count and the miss count.
 * You must have performance enhancement (less total_cache_access_time) to get points. If your result is equal or worse than the reference program, you will get zero point on this part.
@@ -83,7 +83,7 @@ Note: Task2.1 plus task2.2 will be responsible for the total points in the compl
 * Create a directory named "task2-1" to store the files: "cachesim.h", "cachesim.cc" and "task2_1.sh".
 * The size limit of the L1 I$ and D$ is 4KB respective. Do not use cache size larger than 4KB.
 * Recalculate the total cache access time for the origin program within the modified simulator. Put the results in your report.
-* Your result must still passes the checking of the checker.
+* Your result must still pass the checking of the checker.
 
 #### 2.2 Modify the simulation of L1 cache in spike for the modified program your have done in the taks1 to obtain better performance (10%)
 * The same constraints as task 2.1.
@@ -109,10 +109,10 @@ Upload all the asked files to E3 in right format before the deadline. TA will wr
 * Completeness 40%
 	* You must finish the necessary tasks and follow the requirements to get the points in this part.
 * Report 40% (Your report should include the following parts)
-	* The descriptions of all the modifications you have made and explain the reasons why you do this. (30% at most)
-	* The descriptions and explainations of all the results you can get from the tasks. (30% at most)
-	* Discussions. This part can be: What phenomenons you have found in the project? What extra works you did in the project? How did you solve the errors(if any) when you built up the execution environment? and so on. You are free to add other topics related to this project. Please write meaningful discussions as more as possible to gain higher score in this part (30% at most)
-	* Feedback. Is the project fun? Is the project too difficult or too easy? Which part you have spent the most time? Please let TA know what you feel to make us able to create better project and make TA have chance to applogize if it is designed too badly. (10% at most)
+	* The descriptions of all the modifications you have made and explain the reasons why you do this. (30 points at most)
+	* The descriptions and explainations of all the results you can get from the tasks. (30 points at most)
+	* Discussions. This part can be: What phenomenons you have found in the project? What extra works you did in the project? How did you solve the errors(if any) when you built up the execution environment? and so on. You are free to add other topics related to this project. Please write meaningful discussions as more as possible to gain higher score in this part (30 points at most)
+	* Feedback. Is the project fun? Is the project too difficult or too easy? Which part you have spent the most time? Please let TA know what you feel to make us able to create better project and make TA have chance to applogize if it is designed too badly. (10 points at most)
 * Performance Rank 20%
 	* We will sort your total cache access time. The best one can get all points and the worst one will get 1 point in this part for each task. 
 	* We will not compare your results in the bonus parts.
