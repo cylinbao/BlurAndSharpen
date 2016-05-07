@@ -91,14 +91,21 @@ Note: Task2.1 plus task2.2 will be responsible for the total points in the compl
 * Create a directory named "task2-2" to save the files: "cachesim.h", "cachesim.cc" and "task2_2.sh".
 * Recalculate the total cache access time for the origin program within the modified simulator. Put the results in your report.
 
-#### 2.3 Bonus: Add the L2 cache (up to 10%)
+#### 2.3 Bonus: Add the L2 cache and redesign the cache for the basis program (up to 5%)
 * Now consider the L2 cache and redesign your cache policy.
+* Optimize the cache mechanism for the basis program.
 * Assume the hit time for L2 cache is 2 unit time.
 * The limit of the L2 cache size is 8KB.
 * Write a shell script called "task2-3.sh" to indicate how to run your modified spike with corresponding cache configuratoin.
 * Create a directory named "task2-3" to store the files: "cachesim.h", "cachesim.cc" and "task2-3.sh".
 * Modify the cache-access-time formula to calculate the new total cache access time and compare the results.
 * Discuss the impact in your report.
+
+#### 2.4 Bonus: Add the L2 cache and redesign the cache for the modified program you have done in task1 (up to 5%)
+* Same constraints as task2.3
+* The targets now becomes your modified bns.c in task1
+* Write a shell script called "task2-4.sh" to indicate how to run your modified spike with corresponding cache configuratoin.
+* Create a directory named "task2-4" to store the files: "cachesim.h", "cachesim.cc" and "task2-4.sh".
 
 ## Grading policy (The same for the two tasks)
 Upload all the asked files to E3 in right format before the deadline. TA will write a testing script to grade your project automatically. So if you don't follow the naming policy, you will have extraordinary high probability to get zero point. For the late submission in three days, you will get 70% of your grade. For who hasn't uploaded more than 3 days after the due date, you will just get zero point. In addition, the grade will be evaluated by the below items:
