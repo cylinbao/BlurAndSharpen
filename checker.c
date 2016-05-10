@@ -21,10 +21,11 @@ char *goldenOutputNames[numOutput] = {
 	"GoldenOutput/sharpTree.bmp"
 };
 
-void check(BMP *bmptr1, BMP *bmptr2, int *count)
+int check(BMP *bmptr1, BMP *bmptr2)
 {
 	BYTE byte1, byte2;
 	int i, size;
+	int count = 0;
 
 	size = bmptr1->height*bmptr2->width*3;
 
@@ -32,8 +33,10 @@ void check(BMP *bmptr1, BMP *bmptr2, int *count)
 		byte1 = bmptr1->data[i*sizeof(BYTE)];
 		byte2 = bmptr2->data[i*sizeof(BYTE)];
 		if(byte1 != byte2)
-			(*count)++;
+			count++;
 	}
+
+	return count;
 }
 
 int main()
@@ -46,7 +49,7 @@ int main()
 		diffCount = 0;
 		bmpLoad(&bmp1, outputNames[i]);
 		bmpLoad(&bmp2, goldenOutputNames[i]);
-		check(&bmp1, &bmp2, &diffCount);
+		diffCount = check(&bmp1, &bmp2);
 		if(diffCount > diffLimit){
 			pass = 0;
 			break;
